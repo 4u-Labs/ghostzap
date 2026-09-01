@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Central de Ajuda & Suporte — GhostZap</title>
+    <meta name="description" content="Central de Suporte Oficial do GhostZap. Dúvidas sobre Criptografia E2EE, Modo Volátil, PIN de Pânico e Recuperação.">
+    <link rel="icon" type="image/png" href="icons/icon-192.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #020617;
+            --bg-card: rgba(15, 23, 42, 0.75);
+            --border: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(56, 189, 248, 0.3);
+            --primary: #38bdf8;
+            --primary-glow: rgba(56, 189, 248, 0.15);
+            --accent-green: #10b981;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --font: 'Inter', system-ui, -apple-system, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font);
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.08) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.05) 0px, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        .header {
+            border-bottom: 1px solid var(--border);
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(16px);
+            background: rgba(2, 6, 23, 0.85);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: white;
+        }
+
+        .brand img {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(56, 189, 248, 0.2);
+        }
+
+        .brand-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .badge-secure {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 999px;
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--accent-green);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            font-family: var(--font-mono);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-chat {
+            background: var(--primary);
+            color: #020617;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-chat:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(56, 189, 248, 0.4);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 48px 20px 80px;
+            flex: 1;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .hero h1 {
+            font-size: 2.4rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #ffffff 40%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Status Banner */
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .status-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 16px 20px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            backdrop-filter: blur(12px);
+        }
+
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent-green);
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.8);
+            position: relative;
+        }
+
+        .status-indicator::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            border: 1px solid var(--accent-green);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(2); opacity: 0; }
+        }
+
+        .status-info h4 {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .status-info p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            margin-bottom: 48px;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .faq-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .faq-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            transition: border-color 0.2s;
+        }
+
+        .faq-item:hover {
+            border-color: var(--border-hover);
+        }
+
+        .faq-question {
+            padding: 18px 20px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+            font-size: 1rem;
+        }
+
+        .faq-icon {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            transition: transform 0.2s;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+            color: var(--primary);
+        }
+
+        .faq-answer {
+            padding: 0 20px 20px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            display: none;
+            line-height: 1.7;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            margin-top: 8px;
+            padding-top: 16px;
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+
+        .faq-answer strong {
+            color: var(--text-main);
+        }
+
+        .faq-answer code {
+            font-family: var(--font-mono);
+            background: rgba(255, 255, 255, 0.06);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            color: var(--primary);
+        }
+
+        /* Support Channels */
+        .contact-box {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(2, 6, 23, 0.9) 100%);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 36px;
+            text-align: center;
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4);
+            margin-top: 40px;
+        }
+
+        .contact-box h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: var(--text-main);
+        }
+
+        .contact-box p {
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            font-size: 0.95rem;
+        }
+
+        .contact-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .btn-ticket {
+            background: #2563eb;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-ticket:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+        }
+
+        .btn-terms {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-terms:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .footer {
+            border-top: 1px solid var(--border);
+            padding: 24px 20px;
+            text-align: center;
+            color: #475569;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <a href="chat.php" class="brand">
+            <img src="icons/icon-192.png" alt="GhostZap">
+            <div class="brand-title">
+                GhostZap
+                <span class="badge-secure">Zero-Knowledge</span>
+            </div>
+        </a>
+        <div class="header-actions">
+            <a href="chat.php" class="btn-chat">
+                <span>💬</span> Ir para o Chat
+            </a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="hero">
+            <h1>Central de Ajuda & Segurança</h1>
+            <p>Conheça nossa arquitetura blindada, tire dúvidas sobre criptografia e aprenda a usar todos os recursos de soberania digital.</p>
+        </div>
+
+        <!-- Status do Sistema -->
+        <div class="status-grid">
+            <div class="status-card">
+                <div class="status-indicator"></div>
+                <div class="status-info">
+                    <h4>Rede de Relays Segura</h4>
+                    <p>100% Operacional (Zero Logs)</p>
+                </div>
+            </div>
+            <div class="status-card">
+                <div class="status-indicator"></div>
+                <div class="status-info">
+                    <h4>Criptografia Ponta a Ponta</h4>
+                    <p>RSA-4096 / AES-256-GCM</p>
+                </div>
+            </div>
+            <div class="status-card">
+                <div class="status-indicator"></div>
+                <div class="status-info">
+                    <h4>Autodestruição Padrão</h4>
+                    <p>Ativa: 24 horas (Anti-Forense)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ -->
+        <div class="faq-section">
+            <h2 class="section-title">Perguntas Frequentes & Blindagem</h2>
+            
+            <div class="faq-list">
+                
+                <div class="faq-item active">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>⚡ Como funciona o Modo Ghost Volátil (100% RAM)?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        O <strong>Modo Volátil</strong> foi projetado para resistência máxima contra perícias físicas (como Cellebrite UFED). Quando ativado (padrão no GhostZap), <strong>absolutamente nenhuma mensagem, foto ou chave toca o disco rígido ou memória flash</strong>. Tudo reside exclusivamente na memória RAM volátil. Ao fechar a aba ou desligar o aparelho, todos os dados evaporam instantaneamente sem possibilidade de recuperação forense.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>🚨 O que é e como usar o PIN de Pânico (*Duress PIN*)?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Nas configurações do <strong>Cadeado 🔒</strong>, você pode definir dois PINs de 4 a 6 dígitos:
+                        <br><br>
+                        1. <strong>PIN Principal</strong>: Desbloqueia seu GhostZap normalmente.<br>
+                        2. <strong>PIN de Pânico / Coação</strong>: Se alguém exigir que você desbloqueie o aplicativo sob coação, digite este PIN falso. O GhostZap <strong>destruirá imediatamente todo o banco de dados local, chaves e históricos em menos de 1 segundo</strong> e exibirá uma tela limpa, sem deixar vestígios de que havia dados salvos.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>⏱️ Como funciona o prazo padrão de 24 horas para autodestruição?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Por padrão de segurança, todas as mensagens enviadas no GhostZap possuem um temporizador de <strong>24 horas</strong>. Assim que a contagem chega a zero, a mensagem é automaticamente incinerada do aparelho de ambos os usuários. Você pode alterar esse prazo tocando no botão <strong>⏱️ Autodestruição</strong> no menu de anexos (opções: <em>1 minuto, 5 minutos, 1 hora, 24 horas ou Sem prazo</em>).
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>📸 Por que as fotos temporárias só abrem 1 vez?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Ao enviar uma <strong>Foto Temporária (1 visualização)</strong>, o arquivo é descriptografado diretamente na memória temporária do destinatário. No momento em que a imagem é fechada, ela é <strong>apagada e destruída da memória</strong>, impedindo capturas posteriores ou reaberturas.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>🌐 O GhostZap guarda alguma mensagem ou log no servidor?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <strong>Não, absolutamente zero.</strong> O servidor atua como um <em>Relay Zero-Knowledge</em> cego. Ele recebe apenas blocos criptografados que não consegue ler, entrega ao destinatário e, assim que o destinatário confirma o recebimento (ou após 24h), a fila é <strong>apagada permanentemente</strong> do servidor.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>💾 Se eu fechar o app ou navegador e abrir de novo, minhas mensagens continuam lá?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Depende de como você configurou a sua segurança no <strong>Cadeado 🔒</strong>:
+                        <br><br>
+                        • <strong>Com Criptografia Normal em Disco (Modo Volátil Desativado)</strong>: <strong>SIM!</strong> Suas conversas continuam salvas e protegidas por criptografia militar (AES-256-GCM) no aparelho. Elas só somem quando o temporizador de 24 horas (ou o tempo escolhido) expirar.<br><br>
+                        • <strong>Com Modo Ghost Volátil (100% RAM) Ativado</strong>: Se você apenas minimizar o app ou bloquear o celular, tudo continua lá. Porém, se você <strong>fechar a aba ou encerrar o aplicativo totalmente</strong>, a memória RAM é limpa para proteção anti-perícia, reiniciando com o painel limpo. <em>(Mensagens novas enviadas enquanto você estava fora chegarão normalmente assim que você reabrir)</em>.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>📲 Como o GhostZap funciona quando instalado como WebApp (PWA) no celular?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Quando instalado na tela inicial do celular como <strong>WebApp (PWA)</strong>:
+                        <br><br>
+                        • <strong>Tela Cheia Nativa</strong>: Funciona como um aplicativo nativo completo, sem barra de navegação de navegador.<br>
+                        • <strong>Multitarefa & Segundo Plano</strong>: Ao alternar de aplicativo ou bloquear a tela, o sistema mantém sua sessão ativa. Ao tocar no ícone na tela de início, ele retoma o chat instantaneamente.<br>
+                        • <strong>Notificações Diretas</strong>: Emite alertas sonoros e notificações de sistema na barra de status do aparelho quando chegam novas mensagens criptografadas.<br>
+                        • <strong>Persistência Segura</strong>: Se o Modo Volátil estiver desativado, o histórico permanece guardado no aparelho com criptografia AES-256 até o prazo de 24h acabar, mesmo após reiniciar o celular.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        <span>⚙️ Como instalar o GhostZap no celular passo a passo?</span>
+                        <span class="faq-icon">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        O GhostZap é um PWA (*Progressive Web App*). Para instalar na sua tela inicial:
+                        <br><br>
+                        • <strong>No Android (Google Chrome)</strong>: Toque nos três pontinhos no canto superior direito do navegador e escolha <em>"Adicionar à tela inicial"</em> ou <em>"Instalar aplicativo"</em>.<br><br>
+                        • <strong>No iPhone (Apple Safari)</strong>: Toque no botão de <strong>Compartilhar</strong> (ícone do quadrado com a setinha apontando para cima na barra inferior) e role para baixo até a opção <em>"Adicionar à Tela de Início"</em>.
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Box de Contato -->
+        <div class="contact-box">
+            <h3>Ainda precisa de assistência?</h3>
+            <p>Nossa equipe de suporte técnico e segurança está à disposição para dúvidas, auditorias ou suporte empresarial.</p>
+            <div class="contact-buttons">
+                <a href="https://4u.ia.br/index.html#contact" class="btn-ticket" target="_blank" rel="noopener">Abrir Chamado de Suporte</a>
+                <a href="terms.html" class="btn-terms">Ver Termos & Privacidade</a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        GhostZap &copy; 2026 — Soberania Digital e Criptografia Ponta a Ponta. Todos os direitos reservados.
+    </footer>
+
+    <script>
+        function toggleFaq(el) {
+            const item = el.parentElement;
+            item.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
