@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Termos de Uso & Política de Privacidade — GhostZap</title>
+    <meta name="description" content="Termos de Uso, Política de Privacidade e Garantia Zero-Knowledge do GhostZap.">
+    <link rel="icon" type="image/png" href="icons/icon-192.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #020617;
+            --bg-card: rgba(15, 23, 42, 0.75);
+            --border: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(56, 189, 248, 0.3);
+            --primary: #38bdf8;
+            --accent-green: #10b981;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --font: 'Inter', system-ui, -apple-system, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font);
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.7;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.08) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.05) 0px, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        .header {
+            border-bottom: 1px solid var(--border);
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(16px);
+            background: rgba(2, 6, 23, 0.85);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: white;
+        }
+
+        .brand img {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(56, 189, 248, 0.2);
+        }
+
+        .brand-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .badge-secure {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 999px;
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--accent-green);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            font-family: var(--font-mono);
+        }
+
+        .btn-chat {
+            background: var(--primary);
+            color: #020617;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .btn-chat:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(56, 189, 248, 0.4);
+        }
+
+        .container {
+            max-width: 840px;
+            margin: 0 auto;
+            padding: 48px 20px 80px;
+            flex: 1;
+        }
+
+        .doc-header {
+            margin-bottom: 36px;
+            text-align: center;
+        }
+
+        .doc-header h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #ffffff 40%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .doc-header p {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 36px;
+            backdrop-filter: blur(16px);
+            margin-bottom: 24px;
+        }
+
+        h2 {
+            color: var(--primary);
+            font-size: 1.25rem;
+            margin-top: 28px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        h2:first-of-type {
+            margin-top: 0;
+        }
+
+        p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 16px;
+        }
+
+        ul {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            padding-left: 20px;
+            margin-bottom: 16px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        strong {
+            color: var(--text-main);
+        }
+
+        .callout {
+            background: rgba(56, 189, 248, 0.06);
+            border-left: 4px solid var(--primary);
+            padding: 16px 20px;
+            border-radius: 0 12px 12px 0;
+            margin: 24px 0;
+        }
+
+        .callout p {
+            margin-bottom: 0;
+            color: var(--text-main);
+            font-size: 0.9rem;
+        }
+
+        .footer {
+            border-top: 1px solid var(--border);
+            padding: 24px 20px;
+            text-align: center;
+            color: #475569;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <a href="chat.php" class="brand">
+            <img src="icons/icon-192.png" alt="GhostZap">
+            <div class="brand-title">
+                GhostZap
+                <span class="badge-secure">Zero-Knowledge</span>
+            </div>
+        </a>
+        <div>
+            <a href="chat.php" class="btn-chat">Ir para o Chat</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="doc-header">
+            <h1>Termos de Uso & Privacidade</h1>
+            <p>Arquitetura Soberana, Zero-Knowledge e Proteção Anti-Forense.</p>
+        </div>
+
+        <div class="card">
+            <h2>1. Princípio Fundamental Zero-Knowledge (Zero Conhecimento)</h2>
+            <p>No <strong>GhostZap</strong>, a privacidade não é uma promessa contratual, é uma <strong>impossibilidade matemática</strong> de espionagem. Todo o processamento criptográfico ocorre exclusivamente no navegador do seu dispositivo utilizando o padrão <strong>Web Crypto API (RSA-OAEP 4096-bit + AES-256-GCM)</strong>.</p>
+            <p>O servidor central atua apenas como um relay de retransmissão cego. <strong>Nós não possuímos acesso às suas chaves privadas, não podemos ler suas mensagens e não conseguimos interceptar chamadas ou arquivos.</strong></p>
+
+            <div class="callout">
+                <p>🔒 <strong>Sem Backdoors</strong>: Se as autoridades ou terceiros solicitarem acesso ao conteúdo das suas conversas, é tecnicamente impossível fornecê-lo, pois nenhum dado decifrado passa pelo nosso servidor.</p>
+            </div>
+
+            <h2>2. Modo Ghost Volátil (100% RAM) & Proteção Forense</h2>
+            <p>O GhostZap opera por padrão no <strong>Modo Volátil (RAM-Only)</strong>. Isso significa que:</p>
+            <ul>
+                <li>Nenhum dado é gravado no disco físico ou memória flash permanente do dispositivo;</li>
+                <li>Ao fechar a aba, desligar ou reiniciar o aparelho, todos os dados em memória evaporam permanentemente;</li>
+                <li>O sistema é resistente contra extrações forenses físicas (UFED / Cellebrite / GrayKey).</li>
+            </ul>
+
+            <h2>3. Política de Retenção & Autodestruição de 24 Horas</h2>
+            <p>Para garantir que nenhum rastro permaneça na internet:</p>
+            <ul>
+                <li><strong>No Servidor</strong>: Mensagens pendentes de entrega são mantidas por no máximo 24 horas. Assim que o destinatário baixa a mensagem, ela é <strong>permanentemente eliminada</strong> da fila.</li>
+                <li><strong>Nas Mensagens</strong>: O temporizador padrão de autodestruição das mensagens é configurado em <strong>24 horas</strong>, sendo automaticamente incinerado de ambos os aparelhos após o prazo.</li>
+            </ul>
+
+            <h2>4. PIN de Pânico / Coação (*Duress PIN*)</h2>
+            <p>O GhostZap disponibiliza um mecanismo de emergência contra coação física. O usuário reconhece que o uso do <strong>PIN de Pânico</strong> desencadeia uma rotina irreversível de <em>Master Wipe</em>, que destrói todas as chaves criptográficas e dados locais em menos de 1 segundo.</p>
+
+            <h2>5. Soberania e Responsabilidade do Usuário</h2>
+            <p>Você é o único guardião das suas chaves de segurança. Se você esquecer sua senha ou perder seu par de chaves sem ter exportado o arquivo de recuperação de emergência, <strong>ninguém (nem mesmo nossa equipe) poderá restaurar seu acesso</strong>.</p>
+
+            <h2>6. Uso Aceitável</h2>
+            <p>O GhostZap foi desenvolvido para proteger a privacidade de jornalistas, advogados, empresas e cidadãos. É estritamente proibido o uso da infraestrutura para ataques de negação de serviço (DDoS), disseminação de malware ou abusos automatizados que comprometam a estabilidade da rede de relays.</p>
+
+            <p style="margin-top: 40px; font-size: 0.8rem; color: #475569; text-align: center;">
+                Documento de Governança Criptográfica — Atualizado em 2026.
+            </p>
+        </div>
+    </div>
+
+    <footer class="footer">
+        GhostZap &copy; 2026 — Soberania Digital e Criptografia Ponta a Ponta. Todos os direitos reservados.
+    </footer>
+
+</body>
+</html>
