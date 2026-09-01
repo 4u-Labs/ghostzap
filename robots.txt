@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /data/
+Disallow: /lib/
+Sitemap: https://4u.ia.br/app/zap/sitemap.xml
