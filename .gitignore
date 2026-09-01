@@ -1,0 +1,9 @@
+api/
+database.db
+*.sqlite
+*.db
+.env
+*.sql
+*.log
+check_backup.php
+debug.php
