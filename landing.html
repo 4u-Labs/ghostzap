@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GhostZap — Chat Criptografado, Soberania Digital & IA</title>
+    <meta name="description" content="O mensageiro mais seguro e anti-forense da web. Criptografia E2EE de ponta a ponta, Modo Volátil em RAM, PIN de Pânico, Autodestruição de 24h e IA integrada.">
+    <link rel="icon" type="image/png" href="icons/icon-192.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+:root {
+    --bg: #020617;
+    --card: rgba(15, 23, 42, 0.75);
+    --accent: #38bdf8;
+    --accent-glow: rgba(56, 189, 248, 0.35);
+    --green: #10b981;
+    --txt: #f8fafc;
+    --muted: #94a3b8;
+    --border: rgba(255, 255, 255, 0.08);
+    --border-hover: rgba(56, 189, 248, 0.35);
+    --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+    --font-mono: "JetBrains Mono", monospace;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+    font-family: var(--font-sans);
+    background-color: var(--bg);
+    color: var(--txt);
+    line-height: 1.6;
+    overflow-x: hidden;
+    background-image: 
+        radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.08) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.05) 0px, transparent 50%);
+    background-attachment: fixed;
+}
+.wrap { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
+a { color: inherit; text-decoration: none; }
+nav {
+    position: fixed; top: 0; width: 100%; z-index: 1000;
+    background: rgba(2, 6, 23, 0.85); backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+}
+.nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 24px; max-width: 1160px; margin: 0 auto;
+}
+.logo { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 20px; }
+.logo img { width: 36px; height: 36px; border-radius: 10px; box-shadow: 0 4px 14px rgba(56, 189, 248, 0.25); }
+.logo-badge {
+    font-family: var(--font-mono); font-size: 10px; font-weight: 700;
+    text-transform: uppercase; background: rgba(16, 185, 129, 0.15);
+    color: var(--green); border: 1px solid rgba(16, 185, 129, 0.3);
+    padding: 2px 8px; border-radius: 99px;
+}
+.nav-links { display: flex; gap: 8px; align-items: center; }
+.nav-links a { padding: 8px 14px; border-radius: 8px; color: var(--muted); font-size: 14px; font-weight: 500; transition: all 0.2s; }
+.nav-links a:hover { color: var(--txt); background: rgba(255, 255, 255, 0.05); }
+.nav-cta {
+    background: var(--accent) !important; color: #020617 !important;
+    font-weight: 700 !important; padding: 8px 18px !important;
+    box-shadow: 0 4px 16px var(--accent-glow); border-radius: 8px;
+}
+.hero { padding: 170px 0 90px; text-align: center; }
+.badge-live {
+    display: inline-flex; align-items: center; gap: 10px; padding: 8px 20px;
+    background: rgba(15, 23, 42, 0.8); border: 1px solid var(--border);
+    border-radius: 99px; font-size: 13px; color: var(--txt); margin-bottom: 32px;
+}
+.dot-pulse {
+    width: 8px; height: 8px; background: var(--green); border-radius: 50%;
+    box-shadow: 0 0 8px var(--green); animation: pulse 1.8s infinite;
+}
+@keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.6); opacity: 0.4; } }
+h1 { font-size: clamp(38px, 6.5vw, 68px); font-weight: 900; line-height: 1.1; margin-bottom: 24px; }
+.grad {
+    background: linear-gradient(135deg, #ffffff 30%, var(--accent) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.hero p { font-size: 19px; color: var(--muted); max-width: 680px; margin: 0 auto 40px; }
+.hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+.btn {
+    padding: 14px 32px; border-radius: 12px; font-weight: 700; font-size: 16px;
+    transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
+}
+.btn-primary { background: var(--accent); color: #020617; box-shadow: 0 8px 24px var(--accent-glow); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(56, 189, 248, 0.5); }
+.btn-outline { border: 1px solid var(--border); color: var(--txt); background: rgba(255, 255, 255, 0.02); }
+.btn-outline:hover { border-color: var(--accent); background: rgba(56, 189, 248, 0.05); transform: translateY(-2px); }
+.stats { display: flex; gap: 56px; justify-content: center; margin-top: 72px; flex-wrap: wrap; }
+.stat span { display: block; font-size: 36px; font-weight: 900; font-family: var(--font-mono); color: var(--accent); }
+.stat small { color: var(--muted); font-size: 13px; }
+section { padding: 90px 0; }
+.s-label { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; display: block; font-family: var(--font-mono); }
+h2 { font-size: clamp(28px, 4vw, 42px); font-weight: 800; margin-bottom: 16px; }
+.sub { color: var(--muted); font-size: 17px; max-width: 600px; }
+.s-head { text-align: center; margin-bottom: 60px; }
+.s-head .sub { margin: 0 auto; }
+.grid { display: grid; gap: 24px; }
+.grid-3 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+.card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 20px;
+    padding: 36px; transition: all 0.3s ease; backdrop-filter: blur(16px);
+}
+.card:hover { border-color: var(--border-hover); transform: translateY(-6px); box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4); }
+.card-icon {
+    font-size: 32px; width: 56px; height: 56px; border-radius: 14px;
+    background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.2);
+    display: flex; align-items: center; justify-content: center; margin-bottom: 20px;
+}
+.card h3 { font-size: 20px; font-weight: 700; margin-bottom: 12px; }
+.card p { color: var(--muted); font-size: 15px; line-height: 1.7; }
+.card-tag {
+    display: inline-block; font-size: 11px; font-family: var(--font-mono); font-weight: 700;
+    text-transform: uppercase; padding: 2px 8px; border-radius: 6px;
+    background: rgba(56, 189, 248, 0.1); color: var(--accent); margin-top: 16px;
+}
+.comparison-wrap {
+    background: var(--card); border: 1px solid var(--border); border-radius: 24px;
+    padding: 36px; overflow-x: auto; backdrop-filter: blur(16px);
+}
+table { width: 100%; border-collapse: collapse; text-align: left; }
+th, td { padding: 18px 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); font-size: 15px; }
+th { font-size: 14px; font-weight: 700; color: var(--muted); text-transform: uppercase; font-family: var(--font-mono); }
+th.highlight-col, td.highlight-col { background: rgba(56, 189, 248, 0.05); color: var(--accent); font-weight: 700; }
+td.yes { color: var(--green); font-weight: 700; }
+td.no { color: #ef4444; }
+.steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+.step-card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 36px 28px; text-align: center; }
+.step-num {
+    width: 36px; height: 36px; background: var(--accent); color: #020617;
+    border-radius: 10px; font-weight: 800; font-size: 16px; display: inline-flex;
+    align-items: center; justify-content: center; margin-bottom: 20px; font-family: var(--font-mono);
+}
+.step-card h3 { font-size: 19px; font-weight: 700; margin-bottom: 10px; }
+.step-card p { color: var(--muted); font-size: 14px; }
+.plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
+.plan { border: 1px solid var(--border); border-radius: 20px; padding: 36px 28px; text-align: center; background: var(--card); transition: all 0.3s; position: relative; }
+.plan.hot { border-color: var(--accent); box-shadow: 0 0 36px var(--accent-glow); transform: translateY(-4px); }
+.badge-hot {
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: var(--accent); color: #020617; font-size: 11px; font-weight: 800;
+    padding: 4px 14px; border-radius: 99px; text-transform: uppercase;
+}
+.plan .credits { font-size: 24px; font-weight: 800; margin-bottom: 12px; }
+.plan .price { font-size: 42px; font-weight: 900; color: var(--accent); font-family: var(--font-mono); margin: 12px 0 8px; }
+.plan p { color: var(--muted); font-size: 14px; margin-bottom: 28px; }
+.faq-wrap { max-width: 800px; margin: 0 auto; }
+details { border: 1px solid var(--border); border-radius: 16px; margin-bottom: 14px; overflow: hidden; background: var(--card); }
+summary {
+    padding: 20px 24px; cursor: pointer; font-weight: 600; font-size: 16px;
+    list-style: none; display: flex; justify-content: space-between; align-items: center;
+}
+summary::-webkit-details-marker { display: none; }
+summary::after { content: "+"; font-size: 22px; color: var(--accent); font-family: var(--font-mono); transition: transform 0.2s; }
+details[open] summary::after { transform: rotate(45deg); }
+.faq-body { padding: 0 24px 24px; color: var(--muted); line-height: 1.7; font-size: 15px; border-top: 1px solid rgba(255, 255, 255, 0.04); padding-top: 16px; }
+.faq-body strong { color: var(--txt); }
+.cta-box {
+    background: linear-gradient(135deg, rgba(56, 189, 248, 0.12) 0%, rgba(15, 23, 42, 0.9) 100%);
+    border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 32px; padding: 72px 40px; text-align: center;
+}
+footer { padding: 60px 0 40px; text-align: center; border-top: 1px solid var(--border); color: var(--muted); font-size: 14px; background: rgba(2, 6, 23, 0.9); }
+.footer-brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; color: var(--txt); margin-bottom: 20px; font-size: 16px; }
+.footer-links { display: flex; justify-content: center; gap: 24px; margin-bottom: 24px; flex-wrap: wrap; }
+.footer-links a:hover { color: var(--accent); }
+@media (max-width: 768px) {
+    .nav-links .hide { display: none; }
+    .stats { gap: 32px; }
+    .hero { padding: 130px 0 60px; }
+    .card { padding: 24px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo">
+        <img src="icons/icon-192.png" alt="GhostZap">
+        GhostZap
+        <span class="logo-badge">Zero-Knowledge</span>
+    </a>
+    <div class="nav-links">
+      <a href="#features" class="hide">Blindagem</a>
+      <a href="#immunity" class="hide">Anti-Espionagem</a>
+      <a href="#comparison" class="hide">Comparativo</a>
+      <a href="#credits" class="hide">Créditos IA</a>
+      <a href="#faq" class="hide">FAQ</a>
+      <a href="support.html" class="hide">Suporte</a>
+      <a href="index.php" class="nav-cta btn">Acessar Chat</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="badge-live">
+    <span class="dot-pulse"></span>
+    Rede de Relays Zero-Logs Operacional • E2EE Ativo
+  </div>
+  <h1>
+    O Chat Mais Seguro do Mundo<br>
+    <span class="grad">Blindado & Anti-Forense.</span>
+  </h1>
+  <p>
+    Mensagens criptografadas de ponta a ponta com <strong>autodestruição padrão de 24 horas</strong>, <strong>Modo Volátil (100% RAM)</strong>, <strong>PIN de Pânico</strong> contra coação e IA integrada para transcrição e tradução.
+  </p>
+  <div class="hero-btns">
+    <a href="index.php" class="btn btn-primary">🚀 Entrar no GhostZap Grátis</a>
+    <a href="#features" class="btn btn-outline">🛡️ Ver Recursos de Blindagem</a>
+  </div>
+  <div class="stats">
+    <div class="stat"><span>4096</span><small>bits RSA / AES-GCM 256</small></div>
+    <div class="stat"><span>24h</span><small>autodestruição padrão</small></div>
+    <div class="stat"><span>0</span><small>logs ou dados em disco</small></div>
+    <div class="stat"><span>&lt; 1s</span><small>destruição por PIN de pânico</small></div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="s-head">
+    <span class="s-label">Recursos de Blindagem</span>
+    <h2>Engenharia de Segurança Extrema</h2>
+    <p class="sub">Projetado contra interceptações de tráfego, apreensões físicas e vigilância em massa.</p>
+  </div>
+  
+  <div class="grid grid-3">
+    <div class="card">
+      <div class="card-icon">⚡</div>
+      <h3>Modo Ghost Volátil (100% RAM)</h3>
+      <p>Nenhum byte de mensagem ou chave é gravado no disco físico ou SSD. Tudo reside na memória RAM volátil, tornando o dispositivo 100% imune a extrações periciais forenses (Cellebrite / UFED).</p>
+      <span class="card-tag">Anti-Forense</span>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">⏱️</div>
+      <h3>Autodestruição Padrão 24h</h3>
+      <p>Todas as mensagens possuem temporizador padrão de 24 horas para expiração e incineração mútua automática. Você também pode escolher 1 min, 5 min, 1 hora ou Sem prazo.</p>
+      <span class="card-tag">Zero Rastros</span>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">🚨</div>
+      <h3>PIN de Pânico / Coação (Duress)</h3>
+      <p>Se alguém exigir que você desbloqueie seu aparelho sob ameaça, digite seu PIN de Pânico falso. O GhostZap apaga instantaneamente todas as chaves e bancos locais em menos de 1 segundo.</p>
+      <span class="card-tag">Proteção Física</span>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">📸</div>
+      <h3>Fotos Temporárias (View-Once)</h3>
+      <p>Envie fotos de alta resolução que só abrem 1 única vez. A imagem é decodificada diretamente em memória protegida e incinerada assim que o visualizador é fechado.</p>
+      <span class="card-tag">Privacidade Visual</span>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">🪄</div>
+      <h3>IA: Transcrição e Tradução</h3>
+      <p>Transcreva mensagens de áudio para texto instantaneamente, corrija gramática e traduza mensagens em tempo real entre Português, Inglês, Espanhol e Mandarim.</p>
+      <span class="card-tag">IA Soberana</span>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">📱</div>
+      <h3>WebApp Instalável (PWA)</h3>
+      <p>Instale na tela inicial do celular (Android / iOS) ou computador com 1 toque. Notificações nativas e navegação sem barras de navegador, sem depender de lojas de apps.</p>
+      <span class="card-tag">PWA Universal</span>
+    </div>
+  </div>
+</section>
+
+<!-- IMMUNITY & STATE SURVEILLANCE PROTECTION -->
+<section id="immunity" style="background:linear-gradient(180deg, rgba(15,23,42,0.7) 0%, rgba(2,6,23,0.95) 100%); border-top:1px solid var(--border); border-bottom:1px solid var(--border); position:relative; overflow:hidden;">
+  <div style="position:absolute; top:-120px; left:50%; transform:translateX(-50%); width:600px; height:240px; background:radial-gradient(ellipse, rgba(56,189,248,0.15), transparent 70%); pointer-events:none;"></div>
+  
+  <div class="s-head">
+    <div style="display:inline-flex; align-items:center; gap:8px; background:rgba(239,68,68,0.1); border:1px solid rgba(239,68,68,0.3); color:#f87171; padding:6px 16px; border-radius:99px; font-size:12px; font-weight:700; text-transform:uppercase; font-family:var(--font-mono); margin-bottom:16px;">
+      🛡️ Proteção Contra Espionagem & Softwares Governamentais
+    </div>
+    <h2>Nenhum Governo ou Spyware Pode Acessar Suas Conversas</h2>
+    <p class="sub">
+      Projetado com arquitetura criptográfica soberana para resistir a ordens judiciais, interceptações estatais e softwares de extração forense como <strong>Cellebrite UFED, Pegasus (NSO Group) ou GrayKey</strong>.
+    </p>
+  </div>
+
+  <div class="grid grid-3">
+    <div class="card" style="background:rgba(15,23,42,0.85); border-color:rgba(239,68,68,0.25);">
+      <div class="card-icon" style="background:rgba(239,68,68,0.1); border-color:rgba(239,68,68,0.25); color:#f87171;">🚫</div>
+      <h3>Impossibilidade Matemática</h3>
+      <p>O GhostZap não possui chaves mestras, backdoors ou banco de mensagens no servidor. Suas chaves privadas residem unicamente no seu dispositivo. Mesmo sob mandados judiciais internacionais, <strong>é matematicamente impossível descriptografar suas conversas</strong>.</p>
+      <span class="card-tag" style="background:rgba(239,68,68,0.1); color:#f87171;">Zero Backdoors</span>
+    </div>
+
+    <div class="card" style="background:rgba(15,23,42,0.85); border-color:rgba(16,185,129,0.25);">
+      <div class="card-icon" style="background:rgba(16,185,129,0.1); border-color:rgba(16,185,129,0.25); color:#34d399;">⚡</div>
+      <h3>Imune a Perícias Físicas (Cellebrite / UFED)</h3>
+      <p>Softwares forenses governamentais buscam rastros gravados no chip de memória flash do aparelho. No <strong>Modo Ghost Volátil (100% RAM)</strong>, nada toca o disco. Ao desligar ou fechar o app, <strong>todos os vestígios evaporam instantaneamente</strong>.</p>
+      <span class="card-tag" style="background:rgba(16,185,129,0.1); color:#34d399;">Anti-UFED / Cellebrite</span>
+    </div>
+
+    <div class="card" style="background:rgba(15,23,42,0.85); border-color:rgba(56,189,248,0.25);">
+      <div class="card-icon" style="background:rgba(56,189,248,0.1); border-color:rgba(56,189,248,0.25); color:#38bdf8;">🚨</div>
+      <h3>Incineração Ativa Sob Coação</h3>
+      <p>Caso o aparelho seja tomado à força em blitz, fronteiras ou apreensões físicas sob coação, digite seu <strong>PIN de Pânico falso</strong>: todo o histórico, banco local e chaves são eliminados em menos de 1 segundo sem chance de recuperação.</p>
+      <span class="card-tag" style="background:rgba(56,189,248,0.1); color:#38bdf8;">PIN de Pânico / Coação</span>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON -->
+<section id="comparison">
+  <div class="s-head">
+    <span class="s-label">Comparativo de Segurança</span>
+    <h2>Por que o GhostZap é Superior?</h2>
+    <p class="sub">Compare os padrões criptográficos e de proteção física contra os mensageiros comuns.</p>
+  </div>
+
+  <div class="comparison-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Recurso de Segurança</th>
+          <th class="highlight-col">GhostZap</th>
+          <th>WhatsApp</th>
+          <th>Telegram</th>
+          <th>Signal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Criptografia Ponta a Ponta (E2EE)</strong></td>
+          <td class="highlight-col yes">✅ RSA-4096 / AES-256</td>
+          <td class="yes">✅ Signal Protocol</td>
+          <td class="no">❌ Opcional (Chats Secretos)</td>
+          <td class="yes">✅ Signal Protocol</td>
+        </tr>
+        <tr>
+          <td><strong>Modo Volátil (100% RAM / Zero Disco)</strong></td>
+          <td class="highlight-col yes">✅ Sim (Nativo)</td>
+          <td class="no">❌ Não (Grava em Disco)</td>
+          <td class="no">❌ Não (Grava na Nuvem)</td>
+          <td class="no">❌ Não (Grava em Disco)</td>
+        </tr>
+        <tr>
+          <td><strong>PIN de Pânico / Coação (Duress Wipe)</strong></td>
+          <td class="highlight-col yes">✅ Sim (&lt; 1s Wipe)</td>
+          <td class="no">❌ Não</td>
+          <td class="no">❌ Não</td>
+          <td class="no">❌ Não</td>
+        </tr>
+        <tr>
+          <td><strong>Cadastro Sem Número de Telefone</strong></td>
+          <td class="highlight-col yes">✅ 100% Anônimo</td>
+          <td class="no">❌ Exige Celular</td>
+          <td class="no">❌ Exige Celular</td>
+          <td class="no">❌ Exige Celular</td>
+        </tr>
+        <tr>
+          <td><strong>Servidor Sem Banco de Mensagens</strong></td>
+          <td class="highlight-col yes">✅ Relay Cego Zero-Logs</td>
+          <td class="no">❌ Metadados Coletados</td>
+          <td class="no">❌ Mensagens em Nuvem</td>
+          <td class="yes">✅ Zero Logs</td>
+        </tr>
+        <tr>
+          <td><strong>Inteligência Artificial Integrada</strong></td>
+          <td class="highlight-col yes">✅ Áudio, Tradução & Fix</td>
+          <td class="no">❌ Não</td>
+          <td class="no">❌ Não</td>
+          <td class="no">❌ Não</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="s-head">
+    <span class="s-label">Como Funciona</span>
+    <h2>3 Passos Para Soberania Total</h2>
+    <p class="sub">Simples, veloz e sem necessidade de baixar arquivos pesados.</p>
+  </div>
+
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-num">1</div>
+      <h3>Crie sua Identidade</h3>
+      <p>Defina apenas um nome de usuário. Seu par de chaves criptográficas é gerado na hora no seu dispositivo.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">2</div>
+      <h3>Conecte-se com Segurança</h3>
+      <p>Adicione contatos pelo username. A troca pública de chaves criptográficas é realizada de forma automática.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">3</div>
+      <h3>Converse com Autodestruição</h3>
+      <p>Envie textos, fotos efêmeras e arquivos. Suas mensagens expiram e se autodestroem em 24 horas.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CREDITS -->
+<section id="credits">
+  <div class="s-head">
+    <span class="s-label">Recursos de IA</span>
+    <h2>Créditos para Inteligência Artificial</h2>
+    <p class="sub">O chat básico é <strong>100% gratuito e ilimitado</strong>. Os créditos são utilizados exclusivamente para transcrição e tradução por IA.</p>
+  </div>
+
+  <div class="plans">
+    <div class="plan">
+      <div class="credits">10 créditos</div>
+      <div class="price">R$ 10</div>
+      <p>Ideal para uso casual de transcrição de áudio e traduções.</p>
+      <a href="index.php" class="btn btn-outline" style="width:100%;justify-content:center;">Recarregar</a>
+    </div>
+
+    <div class="plan hot">
+      <div class="badge-hot">Mais Popular</div>
+      <div class="credits">50 créditos</div>
+      <div class="price">R$ 50</div>
+      <p>Para uso frequente de IA no dia a dia corporativo e pessoal.</p>
+      <a href="index.php" class="btn btn-primary" style="width:100%;justify-content:center;">Recarregar</a>
+    </div>
+
+    <div class="plan">
+      <div class="credits">100 créditos</div>
+      <div class="price">R$ 100</div>
+      <p>Para equipes, advogados, jornalistas e uso intensivo.</p>
+      <a href="index.php" class="btn btn-outline" style="width:100%;justify-content:center;">Recarregar</a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="s-head">
+    <span class="s-label">Dúvidas Frequentes</span>
+    <h2>Perguntas & Respostas</h2>
+  </div>
+
+  <div class="faq-wrap">
+    <details>
+      <summary>O GhostZap guarda algum dado no servidor?</summary>
+      <div class="faq-body">
+        <strong>Absolutamente não.</strong> O GhostZap funciona sob a premissa de Zero-Knowledge (Zero Conhecimento). O servidor funciona como um relay cego de pacotes cifrados e apaga imediatamente cada mensagem assim que ela é entregue ao destinatário ou ao completar 24 horas.
+      </div>
+    </details>
+
+    <details>
+      <summary>O que acontece com as mensagens após 24 horas?</summary>
+      <div class="faq-body">
+        Por padrão de segurança anti-forense, todas as mensagens possuem um temporizador de <strong>24 horas</strong>. Ao atingir o prazo, a mensagem é incinerada automaticamente do aparelho de ambos os usuários. Você pode personalizar esse tempo para cada mensagem no ícone de relógio.
+      </div>
+    </details>
+
+    <details>
+      <summary>Como o Modo Ghost Volátil protege contra perícia forense?</summary>
+      <div class="faq-body">
+        No Modo Volátil, absolutamente nenhuma informação toca a memória flash ou disco do aparelho. Tudo reside apenas na memória RAM. Caso o aparelho seja desligado ou a aba fechada, todos os vestígios desaparecem eletricamente sem chance de recuperação por ferramentas policiais como Cellebrite UFED.
+      </div>
+    </details>
+
+    <details>
+      <summary>Como funciona o PIN de Pânico / Coação (Duress PIN)?</summary>
+      <div class="faq-body">
+        Você pode configurar um PIN falso nas opções de segurança. Se você for forçado a abrir o app sob coação física, digite o PIN de Pânico: o GhostZap apagará imediatamente todas as chaves e dados locais em menos de 1 segundo, exibindo uma tela vazia sem deixar suspeitas.
+      </div>
+    </details>
+
+    <details>
+      <summary>Governos, mandados ou spywares podem espionar minhas conversas?</summary>
+      <div class="faq-body">
+        <strong>Não.</strong> A criptografia é processada ponta a ponta (E2EE) diretamente no seu navegador, sem chaves mestras no servidor. Softwares forenses (como Cellebrite UFED, Pegasus ou GrayKey) e agências estatais são neutralizados pela combinação do <strong>Modo Volátil (100% RAM)</strong> — que não grava nada no disco físico — e do <strong>PIN de Pânico</strong> — que incinera todos os dados em menos de 1 segundo sob coação.
+      </div>
+    </details>
+
+    <details>
+      <summary>Como instalar no celular como aplicativo (PWA)?</summary>
+      <div class="faq-body">
+        No <strong>Android (Chrome)</strong>, clique nos três pontinhos e selecione <em>"Instalar aplicativo"</em>. No <strong>iPhone (Safari)</strong>, toque no botão de <em>Compartilhar (↑)</em> e escolha <em>"Adicionar à Tela de Início"</em>. O app funcionará em tela cheia nativa.
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- CTA -->
+<section>
+  <div class="cta-box">
+    <h2>Pronto Para Assumir o Controle da Sua Privacidade?</h2>
+    <p>Crie sua conta anônima agora mesmo sem fornecer telefone ou dados pessoais e experimente a soberania criptográfica.</p>
+    <a href="index.php" class="btn btn-primary" style="font-size:18px;padding:18px 44px">🚀 Acessar GhostZap Agora</a>
+  </div>
+</section>
+
+</div><!-- /wrap -->
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="footer-brand">
+      <img src="icons/icon-192.png" style="width:28px;height:28px;border-radius:8px" alt="GhostZap">
+      GhostZap &copy; 2026 — 4U.IA.BR
+    </div>
+    <div class="footer-links">
+      <a href="terms.html">Termos & Governança</a>
+      <a href="support.html">Central de Suporte & FAQ</a>
+      <a href="index.php">Entrar no Chat</a>
+    </div>
+    <p style="color:var(--muted);font-size:13px;">
+      Criptografia Ponta a Ponta (E2EE) · Zero-Knowledge · Proteção Anti-Forense
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
