@@ -2,6 +2,8 @@
 
 <div align="center">
 
+[![ORCID](https://img.shields.io/badge/ORCID-0009--0004--5936--5060-A6CE39?style=for-the-badge&logo=orcid&logoColor=white)](https://orcid.org/0009-0004-5936-5060)
+
 ![GhostZap](https://img.shields.io/badge/GhostZap-v2.0_Anti--Forensic-38bdf8?style=for-the-badge&logo=signal&logoColor=white)
 ![E2EE](https://img.shields.io/badge/Security-E2EE_%2B_ECDH_%2B_AES--GCM-10b981?style=for-the-badge&logo=shield&logoColor=white)
 ![PWA](https://img.shields.io/badge/PWA-Mobile_%26_Desktop-6d4aff?style=for-the-badge&logo=pwa&logoColor=white)
