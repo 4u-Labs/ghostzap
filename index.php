@@ -31,7 +31,7 @@ $v = filemtime(__FILE__); // anti-cache
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="GhostZap — Chat privado com criptografia ponta-a-ponta. O servidor nunca lê suas mensagens.">
     <meta name="theme-color" content="#020617">
     
@@ -64,7 +64,8 @@ $v = filemtime(__FILE__); // anti-cache
     <title>GhostZap — Chat Privado E2EE</title>
     
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="icons/icon-192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=20261120-2">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico?v=20261120-2">
     
     <!-- PWA Manifest -->
     <link rel="manifest" href="manifest.json">
@@ -699,5 +700,7 @@ document.getElementById('login-username').focus();
             localStorage.setItem('pwa-dismissed', 'true');
         }
     </script>
+
+    <script defer src="/assets/4ulabs-ecosystem.js?v=20261122"></script>
 </body>
 </html>
